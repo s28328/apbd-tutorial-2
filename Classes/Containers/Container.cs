@@ -2,35 +2,37 @@ namespace Cwiczenie2.Classes;
 
 public abstract class Container
 {
-    private static Dictionary<string, List<int>> serialCodeDict = new Dictionary<string, List<int>>
+    private static Dictionary<string, int> serialCodeDict = new Dictionary<string, int>
     {
-        {"L",new List<int>{1}},
-        {"C",new List<int>{1}},
-        {"G",new List<int>{1}}
+        {"L", 1},
+        {"C", 1},
+        {"G", 1}
     };
-    private double _massOfCargoInKg;
+    protected double _massOfCargoInKg;
     private double _heightInCm;
     private double _tareWeightInKg;
     private double _depthInCm;
     private double _maxPayloadInKg;
 
-    protected Container(double massOfCargoInKg, double heightInCm, double tareWeightInKg, double depthInCm, double maxPayloadInKg)
+    protected Container( double heightInCm, double tareWeightInKg, double depthInCm, double maxPayloadInKg)
     {
-        _massOfCargoInKg = massOfCargoInKg;
+        _massOfCargoInKg =0;
         _heightInCm = heightInCm;
         _tareWeightInKg = tareWeightInKg;
         _depthInCm = depthInCm;
         _maxPayloadInKg = maxPayloadInKg;
-        setSerialCode();
+        SetSerialCode();
     }
 
-    public double MassOfCargoInKg
+    public virtual double MassOfCargoInKg
     {
         get => _massOfCargoInKg;
         set
         {
-            if (value <= 0)
-                throw new ArgumentException("Mass of cargo can`t be less or equals zero");
+            if (value < 0)
+                throw new ArgumentException("Mass of cargo can`t be less than zero.");
+            else if (value > MaxPayloadInKg)
+                throw new ArgumentException("Overload of max payload.");
             _massOfCargoInKg = value;
         }
     }
@@ -41,7 +43,7 @@ public abstract class Container
         set
         {
             if (value < 0)
-                throw new ArgumentException("Height can`t be less or equals zero");
+                throw new ArgumentException("Height can`t be less or equals zero.");
             _heightInCm = value;
         }
     }
@@ -82,7 +84,7 @@ public abstract class Container
     }
 
 
-    private void setSerialCode()
+    private void SetSerialCode()
     {
         var type = this.GetType();
         string strType = type.Name;
@@ -92,9 +94,9 @@ public abstract class Container
             "GasContainer" => key = "G",
             "RefrigeratedContainer" => key = "C"
         };
-        var keyList = serialCodeDict[key];
-        int code = keyList[^1];
-        keyList.Add(code+1);
+        
+        int code = serialCodeDict[key];
+        serialCodeDict[key] = code + 1;
         string serialCode = $"KON-{key}-{code}";
     }
     

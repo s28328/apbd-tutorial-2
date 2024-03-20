@@ -8,4 +8,9 @@ class LiquidCargo : Cargo
     {
         IsHazard = isHazard;
     }
+
+    public LiquidCargo(LiquidCargo cargo) : base(cargo)
+    {
+        IsHazard = cargo.IsHazard;
+    }
 }

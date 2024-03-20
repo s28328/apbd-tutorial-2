@@ -8,6 +8,12 @@ public abstract class Cargo
         Weight = weight;
     }
 
+    protected Cargo(Cargo cargo)
+    {
+        Name = cargo.Name;
+        Weight = cargo.Weight;
+    }
+
     public string Name { get; set; }
     public double Weight { get; set; }
     

@@ -10,4 +10,10 @@ public class RefrigeratedCargo:Cargo
         TypeOfCargo = typeOfCargo;
         Temperature = temperature;
     }
+
+    public RefrigeratedCargo(RefrigeratedCargo cargo) : base(cargo)
+    {
+        TypeOfCargo = cargo.TypeOfCargo;
+        Temperature = cargo.Temperature;
+    }
 }

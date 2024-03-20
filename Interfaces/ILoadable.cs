@@ -4,6 +4,6 @@ namespace Cwiczenie2.Interfaces;
 
 public interface ILoadable
 {
-    public double Unload();
+    public Cargo? Unload();
     public void Load(Cargo cargo);
 }

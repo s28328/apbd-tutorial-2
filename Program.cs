@@ -1,4 +1,6 @@
-﻿namespace Cwiczenie2;
+﻿using Cwiczenie2.Classes;
+
+namespace Cwiczenie2;
 
 class Program
 {
@@ -6,5 +8,6 @@ class Program
     {
         Console.WriteLine("Hello, World!");
         Console.WriteLine("Test");
+        GasContainer gasContainer = new GasContainer(230, 500, 230, 1000);
     }
 }

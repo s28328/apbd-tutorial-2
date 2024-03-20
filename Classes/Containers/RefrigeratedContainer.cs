@@ -18,9 +18,17 @@ public class RefrigeratedContainer : Container, ILoadable
     {
     }
 
-    public double Unload()
+    public Cargo? Unload()
     {
-        throw new NotImplementedException();
+        if (Cargo == null)
+        {
+            Console.WriteLine("Container has no cargo to unload.");
+            return null;
+        }
+        this.MassOfCargoInKg = 0;
+        var unloadedCargo = new RefrigeratedCargo((RefrigeratedCargo)this.Cargo);
+        this.Cargo = null;
+        return unloadedCargo;
     }
 
     public void Load(Cargo cargo)
@@ -35,9 +43,8 @@ public class RefrigeratedContainer : Container, ILoadable
         }
         else
         {
+            this.Cargo = refrigeratedCargo;
             this.MassOfCargoInKg = refrigeratedCargo.Weight;
         }
-        
-        throw new NotImplementedException();
     }
 }

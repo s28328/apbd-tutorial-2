@@ -5,10 +5,17 @@ namespace Cwiczenie2.Classes;
 
 public class GasContainer : Container, ILoadable,IHazardNotifier
 {
-    public double Unload()
+    public Cargo? Unload()
     {
-        double unloadedCargo = MassOfCargoInKg;
+        if (Cargo == null)
+        {
+            Console.WriteLine("Container has no cargo to unload.");
+            return null;
+        }
         MassOfCargoInKg = MassOfCargoInKg * 0.05;
+        this.Cargo.Weight *= 0.95;
+        var unloadedCargo = new GasCargo((GasCargo)this.Cargo);
+        this.Cargo = null;
         return unloadedCargo;
     }
 
@@ -16,8 +23,8 @@ public class GasContainer : Container, ILoadable,IHazardNotifier
     {
         if (cargo.GetType().Name != "GasCargo")
             throw new ArgumentException("Not valid type of cargo to load.");
-        GasCargo gasCargo = (GasCargo)cargo;
-        MassOfCargoInKg += gasCargo.Weight;
+        MassOfCargoInKg += cargo.Weight;
+        this.Cargo = cargo;
     }
     public GasContainer(
         double heightInCm,

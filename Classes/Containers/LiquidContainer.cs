@@ -6,9 +6,17 @@ namespace Cwiczenie2.Classes;
 class LiquidContainer : Container, ILoadable, IHazardNotifier
 {
  
-    public double Unload()
+    public Cargo? Unload()
     {
-        throw new NotImplementedException();
+        if (Cargo == null)
+        {
+            Console.WriteLine("Container has no cargo to unload.");
+            return null;
+        }
+        this.MassOfCargoInKg = 0;
+        var unloadedCargo = new LiquidCargo((LiquidCargo)this.Cargo);
+        this.Cargo = null;
+        return unloadedCargo;
     }
 
     public void Load(Cargo cargo)
@@ -18,15 +26,21 @@ class LiquidContainer : Container, ILoadable, IHazardNotifier
         LiquidCargo liquidCargo = (LiquidCargo)cargo;
         if (liquidCargo.IsHazard)
         {
-            if(liquidCargo.Weight <= 0.5*this.MaxPayloadInKg)
+            if (liquidCargo.Weight <= 0.5 * this.MaxPayloadInKg)
+            {
                 this.MassOfCargoInKg = liquidCargo.Weight;
+                this.Cargo = liquidCargo;
+            }
             else
                 HazardNotify("Overload attempt of hazard cargo.");
         }
         else
         {
-            if(liquidCargo.Weight <= 0.9*this.MaxPayloadInKg)
+            if (liquidCargo.Weight <= 0.9 * this.MaxPayloadInKg)
+            {
                 this.MassOfCargoInKg = liquidCargo.Weight;
+                this.Cargo = liquidCargo;
+            }
             else
                 HazardNotify("Overload attempt of cargo.");
         }

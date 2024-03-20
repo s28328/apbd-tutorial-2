@@ -22,7 +22,7 @@ public class RefrigeratedContainer : Container, ILoadable
     {
         if (Cargo == null)
         {
-            Console.WriteLine("Container has no cargo to unload.");
+            Console.WriteLine("Container with serial code: ["+this.SerialCode+"] has no cargo to unload.");
             return null;
         }
         this.MassOfCargoInKg = 0;

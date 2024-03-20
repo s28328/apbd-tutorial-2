@@ -78,7 +78,7 @@ public abstract class Container
         }
     }
 
-    public string SerialCode { get; }
+    public string SerialCode { get; private set; }
 
     public double MaxPayloadInKg
     {
@@ -105,7 +105,7 @@ public abstract class Container
         
         int code = serialCodeDict[key];
         serialCodeDict[key] = code + 1;
-        string serialCode = $"KON-{key}-{code}";
+        this.SerialCode = $"KON-{key}-{code}";
     }
     
     

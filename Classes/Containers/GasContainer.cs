@@ -9,7 +9,7 @@ public class GasContainer : Container, ILoadable,IHazardNotifier
     {
         if (Cargo == null)
         {
-            Console.WriteLine("Container has no cargo to unload.");
+            Console.WriteLine("Container with serial code: ["+this.SerialCode+"] has no cargo to unload.");
             return null;
         }
         MassOfCargoInKg = MassOfCargoInKg * 0.05;

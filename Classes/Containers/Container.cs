@@ -1,3 +1,6 @@
+using Cwiczenie2.Classes.Cargos;
+using Cwiczenie2.Exceptions;
+
 namespace Cwiczenie2.Classes;
 
 public abstract class Container
@@ -8,6 +11,7 @@ public abstract class Container
         {"C", 1},
         {"G", 1}
     };
+    
     protected double _massOfCargoInKg;
     private double _heightInCm;
     private double _tareWeightInKg;
@@ -22,8 +26,12 @@ public abstract class Container
         _depthInCm = depthInCm;
         _maxPayloadInKg = maxPayloadInKg;
         SetSerialCode();
-    }
+        Cargo = null;
 
+    }
+    
+    
+    public Cargo? Cargo { get; protected set; } 
     public virtual double MassOfCargoInKg
     {
         get => _massOfCargoInKg;
@@ -32,7 +40,7 @@ public abstract class Container
             if (value < 0)
                 throw new ArgumentException("Mass of cargo can`t be less than zero.");
             else if (value > MaxPayloadInKg)
-                throw new ArgumentException("Overload of max payload.");
+                throw new OverfillException("Overload of max payload.");
             _massOfCargoInKg = value;
         }
     }

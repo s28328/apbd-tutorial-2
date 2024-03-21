@@ -16,5 +16,12 @@ public abstract class Cargo
 
     public string Name { get; set; }
     public double Weight { get; set; }
+
+    public string Info()
+    {
+        return $"Cargo:\n" +
+               $"Name:{Name}\n" +
+               $"Weight:{Weight} (kg)";
+    }
     
 }

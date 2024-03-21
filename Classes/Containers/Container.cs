@@ -107,7 +107,22 @@ public abstract class Container
         serialCodeDict[key] = code + 1;
         this.SerialCode = $"KON-{key}-{code}";
     }
-    
-    
 
+    public override string ToString()
+    {
+        return $"Container: serial code[{this.SerialCode}]";
+    }
+
+    public string Info()
+    {
+        string? cargoInfo = Cargo == null ?" None" :Cargo.ToString();
+        return $"Container:\n" +
+               $"Serial code:{SerialCode}\n" +
+               $"Height:{HeightInCm} (cm)\n" +
+               $"Depth:{DepthInCm} (cm)\\n" +
+               $"Tare weight:{TareWeightInKg} (kg)\n" +
+               $"Payload limit:{MaxPayloadInKg} (kg)\n" +
+               $"Mass of cargo{MassOfCargoInKg} (kg)\n" +
+               $"Cargo:{cargoInfo}";
+    }
 }
